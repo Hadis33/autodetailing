@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('password');
             $table->rememberToken();
-            $table->enum('role', ['admin', 'employee', 'client'])->default('client');
-            $table->foreignId('current_team_id')->nullable();
+            $table->enum('role', ['admin', 'employee', 'foreman', 'client'])->default('client');
             $table->timestamps();
         });
 

@@ -48,9 +48,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         })->name('users');
 
         // forma za edit korisnika
-        Route::get('/users/edit/{user}', function (\App\Models\User $user) {
-            return view('users.edit', compact('user'));
-        })->name('users.edit');
+        // Route::get('/users/edit/{user}', function (\App\Models\User $user) {
+        //     return view('users.edit', compact('user'));
+        // })->name('users.edit');
+
+        Route::get('/users/edit/{user}', [UserController::class, 'edit'])
+            ->name('users.edit');
 
         // forma za dodavanje korisnika
         Route::get('/users/add', [UserController::class, 'create'])
@@ -67,6 +70,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         // store korisnika
         Route::post('/users/add', [UserController::class, 'store'])
             ->name('users.store');
+
+        // lista poslovnih jedinica
+        Route::get('/units', function () {
+            return view('units.units');
+        })->name('units');
     });
 });
 

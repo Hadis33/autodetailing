@@ -12,12 +12,15 @@ class UserController extends Controller
         return view('users.users');
     }
 
-    public function edit(Request $request)
+    public function edit($user)
     {
-        $id = $request->id;
+        $user = \App\Models\User::findOrFail($user);
+        $units = \App\Models\Unit::all();
 
-        $users = DB::table('users')->where('id', $id)->get();
-        return view('users.edit', ['users' => $users]);
+        return view('users.edit', [
+            'user' => $user,
+            'units' => $units,
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -28,7 +31,8 @@ class UserController extends Controller
             'lastname' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
-            'role' => 'required|string|in:admin,employee,client',
+            'role' => 'required|string|in:admin,employee,foreman,client',
+            'unit_id' => 'nullable|exists:units,id',
         ]);
 
         DB::table('users')->where('id', $id)->update([
@@ -37,6 +41,7 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'role' => $request->role,
+            'unit_id' => $request->unit_id,
         ]);
 
         return redirect()->route('users')->with('success', 'Korisnik je uspješno ažuriran.');
@@ -51,7 +56,11 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.add');
+        $units = \App\Models\Unit::all();
+
+        return view('users.add', [
+            'units' => $units,
+        ]);
     }
 
     public function store(Request $request)
@@ -61,7 +70,8 @@ class UserController extends Controller
             'lastname' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'phone' => 'nullable|string|max:20',
-            'role' => 'required|string|in:admin,employee,client',
+            'role' => 'required|string|in:admin,employee,foreman,client',
+            'unit_id' => 'nullable|exists:units,id',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -71,6 +81,7 @@ class UserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'role' => $request->role,
+            'unit_id' => $request->unit_id,
             'password' => bcrypt($request->password),
         ]);
 

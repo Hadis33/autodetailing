@@ -33,6 +33,28 @@
                     required autocomplete="phone" pattern='\d*' />
             </div>
 
+            <div class="md:col-span-2">
+                <x-label for="role" value="Ovlast" class="text-sm sm:text-base" />
+                <select id="role" name="role"
+                    class="block mt-1 w-full rounded-lg border-gray-300 focus:border-red-500
+                                    focus:ring-red-500 cursor-pointer text-sm sm:text-base py-2.5 px-3"
+                    required>
+                    <option value="">Odaberite ovlast</option>
+                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
+                        Administrator
+                    </option>
+                    <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>
+                        Uposlenik
+                    </option>
+                    <option value="foreman" {{ old('role') == 'foreman' ? 'selected' : '' }}>
+                        Poslovođa
+                    </option>
+                    <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>
+                        Klijent
+                    </option>
+                </select>
+            </div>
+
             <div class="mt-4">
                 <x-label for="password" value="Lozinka" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required

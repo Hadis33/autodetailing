@@ -32,6 +32,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'role',
+        'unit_id',
     ];
 
     /**
@@ -66,5 +67,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 }

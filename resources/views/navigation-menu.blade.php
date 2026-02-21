@@ -19,6 +19,9 @@
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Korisnici') }}
                         </x-nav-link>
+                        <x-nav-link href="{{ route('units') }}" :active="request()->routeIs('units')">
+                            {{ __('Poslovne jedinice') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -146,6 +149,14 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if (Auth::user()->role === 'admin')
+                <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    {{ __('Korisnici') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link href="{{ route('units') }}" :active="request()->routeIs('units')">
+                    {{ __('Poslovne jedinice') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

@@ -58,16 +58,33 @@
                                 class="block mt-1 w-full rounded-lg border-gray-300 focus:border-red-500
                                     focus:ring-red-500 cursor-pointer text-sm sm:text-base py-2.5 px-3"
                                 required>
-                                <option value="">Odaberite ovlast</option>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
-                                    Administrator
+                                <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>
+                                    Klijent
                                 </option>
                                 <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>
                                     Uposlenik
                                 </option>
-                                <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>
-                                    Klijent
+                                <option value="foreman" {{ old('role') == 'foreman' ? 'selected' : '' }}>
+                                    Poslovođa
                                 </option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
+                                    Administrator
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Unit Select (Initially Hidden, Shown Only for Foreman and Employee) -->
+                        <div id="unit-select" class="md:col-span-2 hidden">
+                            <x-label for="unit_id" value="Poslovna jedinica" class="text-sm sm:text-base" />
+                            <select id="unit_id" name="unit_id" required
+                                class="block mt-1 w-full rounded-lg border-gray-300 focus:border-red-500 focus:ring-red-500 cursor-pointer text-sm sm:text-base py-2.5 px-3">
+                                <option value="">-- Odaberite poslovnu jedinicu --</option>
+                                @foreach ($units as $unit)
+                                    <option value="{{ $unit->id }}"
+                                        {{ old('unit_id') == $unit->id ? 'selected' : '' }}>
+                                        {{ $unit->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -124,4 +141,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            const unitDiv = document.getElementById('unit-select');
+
+            function toggleUnit() {
+                if (roleSelect.value === 'employee' || roleSelect.value === 'foreman') {
+                    unitDiv.classList.remove('hidden');
+                } else {
+                    unitDiv.classList.add('hidden');
+                }
+            }
+
+            roleSelect.addEventListener('change', toggleUnit);
+
+            // inicijalno provjeri (ako je old value postavljena)
+            toggleUnit();
+        });
+    </script>
 </x-guest-layout>

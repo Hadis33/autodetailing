@@ -1,16 +1,16 @@
 <div>
     {{-- Search --}}
     <div class="mb-6 flex justify-between items-center">
-        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Pretraži korisnike..."
+        <input type="text" wire:model.live.debounce.300ms="search" placeholder="Pretraži poslovne jedinice..."
             class="w-2/3 px-4 py-2 mr-4 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
-        <a href="{{ route('users.add') }}">
+        <a href="">
             <x-button class="w-max px-4 py-3">
                 <svg class="w-4 h-4 mr-2 text-gray-100" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                         d="M5 12h14m-7 7V5" />
                 </svg>
-                Dodaj korisnika
+                Dodaj poslovnu jedinicu
             </x-button>
         </a>
     </div>
@@ -20,10 +20,10 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th wire:click="sort('firstname')"
+                    <th wire:click="sort('name')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-                        Ime
-                        @if ($sortBy === 'firstname')
+                        Naziv
+                        @if ($sortBy === 'name')
                             @if ($sortDirection === 'asc')
                                 ↑
                             @else
@@ -31,10 +31,10 @@
                             @endif
                         @endif
                     </th>
-                    <th wire:click="sort('lastname')"
+                    <th wire:click="sort('address')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-                        Prezime
-                        @if ($sortBy === 'lastname')
+                        Adresa
+                        @if ($sortBy === 'address')
                             @if ($sortDirection === 'asc')
                                 ↑
                             @else
@@ -48,72 +48,35 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Telefon
                     </th>
-                    <th wire:click="sort('role')"
+                    <th
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100">
-                        Ovlast
-                        @if ($sortBy === 'role')
-                            @if ($sortDirection === 'asc')
-                                ↑
-                            @else
-                                ↓
-                            @endif
-                        @endif
+                        Odgovorna osoba
                     </th>
-
-                    @if (auth()->user()->isAdmin())
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Poslovna jedinica
-                        </th>
-                    @endif
-
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Akcije
                     </th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($users as $user)
+                @forelse($units as $unit)
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap">
-                            {{ $user->firstname }}
+                            {{ $unit->name }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            {{ $user->lastname }}
+                            {{ $unit->address }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            {{ $user->email }}
+                            {{ $unit->email }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            {{ $user->phone }}
+                            {{ $unit->phone }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                                @switch($user->role)
-                                    @case('admin')
-                                        {{ __('Administrator') }}
-                                    @break
-
-                                    @case('employee')
-                                        {{ __('Uposlenik') }}
-                                    @break
-
-                                    @case('foreman')
-                                        {{ __('Poslovođa') }}
-                                    @break
-
-                                    @case('client')
-                                        {{ __('Klijent') }}
-                                    @break
-                                @endswitch
-                            </span>
+                            {{ $unit->foreman->firstname . ' ' . $unit->foreman->lastname }}
                         </td>
-                        @if (auth()->user()->isAdmin())
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $user->unit?->name ?? '-' }}
-                            </td>
-                        @endif
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('users.edit', $user) }}">
+                            <a href="">
                                 <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -123,19 +86,19 @@
                             </a>
                         </td>
                     </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                                Nema korisnika
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        {{-- Pagination --}}
-        <div class="mt-4">
-            {{ $users->links() }}
-        </div>
+                @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            Nema poslovnih jedinica
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+
+    {{-- Pagination --}}
+    <div class="mt-4">
+        {{ $units->links() }}
+    </div>
+</div>

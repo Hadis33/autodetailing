@@ -15,6 +15,9 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('webshop') }}" :active="request()->routeIs('webshop')">
+                        {{ __('Web Shop') }}
+                    </x-nav-link>
                     @if (Auth::user()->role === 'admin')
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Korisnici') }}

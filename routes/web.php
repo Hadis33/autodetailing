@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -33,6 +34,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user/profile', function () {
         return view('profile.show');
     })->name('profile.show');
+
+    Route::get('/webshop', [ItemController::class, 'index'])->name('webshop');
+
+    // Forma za dodavanje artikla (GET)
+    Route::get('/webshop/add', function () {
+        if (!Auth::check()) return redirect()->route('login');
+        if (!in_array(Auth::user()->role, ['admin', 'foreman'])) abort(403);
+        return app(ItemController::class)->create();
+    })->name('webshop.add');
+
+    // Spremanje artikla (POST)
+    Route::post('/webshop/store', function (\Illuminate\Http\Request $request) {
+        if (!Auth::check()) return redirect()->route('login');
+        if (!in_array(Auth::user()->role, ['admin', 'foreman'])) abort(403);
+        return app(ItemController::class)->store($request);
+    })->name('webshop.store');
 
 
     /*

@@ -33,28 +33,6 @@
                     required autocomplete="phone" pattern='\d*' />
             </div>
 
-            <div class="md:col-span-2">
-                <x-label for="role" value="Ovlast" class="text-sm sm:text-base" />
-                <select id="role" name="role"
-                    class="block mt-1 w-full rounded-lg border-gray-300 focus:border-red-500
-                                    focus:ring-red-500 cursor-pointer text-sm sm:text-base py-2.5 px-3"
-                    required>
-                    <option value="">Odaberite ovlast</option>
-                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>
-                        Administrator
-                    </option>
-                    <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>
-                        Uposlenik
-                    </option>
-                    <option value="foreman" {{ old('role') == 'foreman' ? 'selected' : '' }}>
-                        Poslovođa
-                    </option>
-                    <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>
-                        Klijent
-                    </option>
-                </select>
-            </div>
-
             <div class="mt-4">
                 <x-label for="password" value="Lozinka" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
@@ -78,13 +56,13 @@
                                     'terms_of_service' =>
                                         '<a target="_blank" href="' .
                                         route('terms.show') .
-                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">' .
                                         __('Terms of Service') .
                                         '</a>',
                                     'privacy_policy' =>
                                         '<a target="_blank" href="' .
                                         route('policy.show') .
-                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">' .
+                                        '" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">' .
                                         __('Privacy Policy') .
                                         '</a>',
                                 ]) !!}
@@ -95,7 +73,7 @@
             @endif
 
             <div class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                     href="{{ route('login') }}">
                     Već imate račun?
                 </a>

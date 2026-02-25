@@ -4,8 +4,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
                 <!-- Title -->
-                <div class="px-6 pt-6 lg:p-8 bg-white border-gray-200">
-                    <h1 class="text-3xl font-bold text-gray-900">
+                <div class="px-8 pt-8 bg-white border-gray-200">
+                    <h1 class="text-2xl font-medium text-gray-900">
                         Web Shop
                     </h1>
                     <p class="text-gray-500 mt-2">
@@ -17,11 +17,11 @@
 
                     @if (Auth::check() && in_array(Auth::user()->role, ['admin', 'foreman']))
                         <a href="{{ route('webshop.add') }}">
-                            <x-button class="w-max px-4 py-3 mb-4">
+                            <x-button class="w-max px-4 py-3 mb-4 mt-6">
                                 <svg class="w-4 h-4 mr-2 text-gray-100" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                     viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    <path stroke="currentColor" strWoke-linecap="round" stroke-linejoin="round"
                                         stroke-width="3" d="M5 12h14m-7 7V5" />
                                 </svg>
                                 Dodaj novi artikal

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -51,6 +52,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return app(ItemController::class)->store($request);
     })->name('webshop.store');
 
+    // Rezervacije
+    // Route::get('/reservations', [ReservationController::class, 'index'])
+    //     ->name('reservations.index');
+
+    Route::get('/reservations/add', [ReservationController::class, 'create'])
+        ->name('reservations.add');
+
+    Route::post('/reservations/add', [ReservationController::class, 'store'])
+        ->name('reservations.store');
+
+    Route::get('/units/{id}/coordinates', [App\Http\Controllers\UnitController::class, 'getCoordinates']);
+
 
     /*
     |--------------------------------------------------------------------------
@@ -63,11 +76,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/users', function () {
             return view('users.users');
         })->name('users');
-
-        // forma za edit korisnika
-        // Route::get('/users/edit/{user}', function (\App\Models\User $user) {
-        //     return view('users.edit', compact('user'));
-        // })->name('users.edit');
 
         Route::get('/users/edit/{user}', [UserController::class, 'edit'])
             ->name('users.edit');

@@ -50,6 +50,17 @@
                 </div>
             </div>
 
+            <div class="mt-4">
+                <span
+                    class="text-sm text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Nemate nalog?
+                    <a href="/register" class="underline hover:text-gray-900">
+                        Registrirajte se
+                    </a>
+                </span>
+            </div>
+
+
         </form>
     </x-authentication-card>
 </x-guest-layout>

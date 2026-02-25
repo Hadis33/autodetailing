@@ -14,6 +14,19 @@ class UnitController extends Controller
         return view('units.units');
     }
 
+    public function getCoordinates($id)
+    {
+        $unit = \App\Models\Unit::find($id);
+
+        if (!$unit) {
+            return response()->json(['error' => 'Jedinica nije pronađena'], 404);
+        }
+
+        return response()->json([
+            'coordinates' => $unit->coordinates,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

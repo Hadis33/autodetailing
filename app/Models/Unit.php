@@ -12,6 +12,7 @@ class Unit extends Model
         'email',
         'phone',
         'foreman_id',
+        'coordinates',
     ];
 
     public function foreman()

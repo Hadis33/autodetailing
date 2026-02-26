@@ -9,8 +9,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UnitsTableSeeder::class,   // seedaj prvo poslovne jedinice
-            UsersTableSeeder::class,   // seedaj korisnike nakon što units postoje
+            UnitsTableSeeder::class,
+            UsersTableSeeder::class,
             ItemsTableSeeder::class,
             ServicesTableSeeder::class,
             ReservationsTableSeeder::class,

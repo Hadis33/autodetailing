@@ -19,6 +19,7 @@
                             str_contains($error, 'validation.phone') => 'Unesite validan broj telefona.',
                             str_contains($error, 'role') => 'Odaberite validnu ovlast.',
                             str_contains($error, 'password') => 'Problem sa lozinkom.',
+                            str_contains($error, 'auth.failed') => 'Netačni podaci.',
                             default => $error,
                         };
                     @endphp
